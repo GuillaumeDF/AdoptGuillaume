@@ -17,7 +17,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = UIWindow(windowScene: windowScene)
         
-        let homeViewController = HomeViewController()
+        let repository = AdoptRepository(coreDataSource: CoreDataSource.shared, apiDataSource: UserApi.shared)
+        let userViewModel = UserViewModel(repository: repository)
+        let homeViewController = HomeViewController(userViewModel: userViewModel)
         let navigationController = UINavigationController(rootViewController: homeViewController)
         
         window?.rootViewController = navigationController

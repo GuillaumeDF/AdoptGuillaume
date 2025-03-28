@@ -14,14 +14,13 @@ enum HTTPMethod: String {
     case delete = "DELETE"
 }
 
-protocol ApiProtocol: AnyObject {
+protocol ApiProtocol {
     associatedtype DecodedData: Decodable
     
     var session: URLSession { get set }
     var httpMethod: HTTPMethod { get }
     
-    func getData(parameters: [String: String]) async throws -> Data
-    func decodeResponse(from data: Data) throws -> DecodedData
+    func fetch(numberOfUsers: Int, nationalities: [String]) async throws -> [User]
 }
 
 extension ApiProtocol {

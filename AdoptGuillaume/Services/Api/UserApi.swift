@@ -7,20 +7,21 @@
 
 import Foundation
 
-class UserApi: ApiProtocol {
+final class UserApi: ApiProtocol {
     typealias DecodedData = UserResponse
     
+    static let shared = UserApi()
     var session: URLSession
     var url: URL?
     var httpMethod: HTTPMethod {
         .get
     }
     
-    init(session: URLSession = .shared) {
+    private init(session: URLSession = .shared) {
         self.session = session
     }
     
-    func fetch(numberOfUsers: Int = 50, nationalities: [String] = ["fr", "us", "gb", "de", "es"]) async throws -> [User] {
+    func fetch(numberOfUsers: Int, nationalities: [String]) async throws -> [User] {
         do {
             let parameters: [String: String] = [
                 "results": "\(numberOfUsers)",
